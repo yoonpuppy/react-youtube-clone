@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Typography, Button, Form, message, Input, Icon } from 'antd';
 import Dropzone from 'react-dropzone';
+import axios from 'axios';
 
 const { TextArea } = Input;
 const { Title } = Typography;
@@ -30,7 +31,6 @@ function VideoUploadPage() {
 
     // #4 8:30 onChange 입력 기능
     const onTitleChange = (e) => {
-        console.log(e)
         setVideoTitle(e.currentTarget.value)
     }
 
@@ -47,6 +47,28 @@ function VideoUploadPage() {
         setCategory(e.currentTarget.value)
     }
 
+    // #5 1:20 onDrop func
+    const onDrop = (files) => {
+
+        let formData = new FormData;
+        const config = {
+            header: {'content-type': 'multipart/form-data'}
+        }
+        formData.append("file", files[0])
+
+        console.log(files) // files 가 뭔지 -> 방금 올린 정보가 담겨있음
+
+        axios.post('/api/video/uploadfiles', formData, config)
+            .then(response => {
+                if(response.data.success) {
+                    console.log(response.data)
+                } else {
+                    alert('비디오 업로드 실패')
+                }
+            })
+
+    }
+
     return (
         <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
             <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
@@ -57,9 +79,9 @@ function VideoUploadPage() {
                     {/* Drop zone */}
 
                     <Dropzone
-                        onDrop
-                        multiple
-                        maxSize>
+                        onDrop={onDrop}
+                        multiple={false}
+                        maxSize={10000000}>
                         {({ getRootProps, getInputProps }) => (
                             <div style={{ width: '300px', height: '240px', border: '1px solid lightgray', display: 'flex', alignItems: 'center', justifyContent: 'center' }} {...getRootProps()}>
                                 <input {...getInputProps()} />

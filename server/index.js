@@ -34,6 +34,8 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use('/api/users', require('./routes/users'));
+// #5 6:15 index 로 온 걸 video 로 보내줌
+app.use('/api/video', require('./routes/video'));
 
 
 //use this to show the image you have in node js server to client (react js)
