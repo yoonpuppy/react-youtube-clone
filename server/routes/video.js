@@ -67,6 +67,16 @@ router.get('/getVideos', (req, res) => {
         })
 })
 
+// #9 10:00 getVideoDetail
+router.post('/getVideoDetail', (req, res) => {
+    
+    Video.findOne({ "_id": req.body.videoId })
+        .populate('writer')
+        .exec((err, videoDetail) => {
+            if(err) return res.status(400).send(err)
+            return res.status(200).json({ success: true, videoDetail })
+        })
+})
 
 // #6 4:30
 router.post('/thumbnail', (req, res) => {
