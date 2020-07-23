@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 // #9 3:30 반응형
 import { Row, Col, List, Avatar, Typography } from 'antd';
 import axios from 'axios';
+// #10 
+import SideVideo from './Sections/SideVideo';
 
 function VideoDetailPage(props) {
 
@@ -55,7 +57,7 @@ function VideoDetailPage(props) {
 
                 </Col>
                 <Col lg={6} xs={24}>
-                    Side Videos
+                    <SideVideo />
                 </Col>
             </Row>
             
