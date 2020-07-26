@@ -8,6 +8,7 @@ function Subscribe(props) {
 
     useEffect(() => {
         
+        // #11 
         let variable = { userTo: props.userTo }
         
         axios.post('/api/subscribe/subscribeNumber', variable )
@@ -35,11 +36,51 @@ function Subscribe(props) {
     
     }, [])
 
+    // #12 onClick 기능
+    const onSubscribe = () => {
+
+        let subscribedVariable = {
+            userTo: props.userTo, 
+            userFrom: localStorage.getItem('userId')
+        }
+
+    
+        // 이미 구독 중이라면
+        if(Subscribed) {
+
+            axios.post('/api/subscribe/unSubscribe', subscribedVariable )
+                .then(response => {
+                    if(response.data.success) {
+                        
+                        // 구독 취소
+                        setSubscribeNumber(SubscribeNumber - 1)
+                        // 반대
+                        setSubscribed(!Subscribed)
+
+                    } else {
+                        alert('구독 취소 실패')
+                    }
+                })
+        
+        } else {
+            // 구독 중이 아니라면
+            axios.post('/api/subscribe/subscribe', subscribedVariable )
+                .then(response => {
+                    if(response.data.success) {
+                        setSubscribeNumber(SubscribeNumber + 1)
+                        setSubscribed(!Subscribed)
+                    } else {
+                        alert('구독 실패')
+                    }
+                })
+        }
+    }
+
     return (
         <div>
             <button
-                style={{ backgroundColor: `${Subscribe ? '#CC0000' : '#AAAAAA '}` , borderRadius: '4px', color: 'white', padding: '10px 16px', fontWeight: '500', fontSize: '1rem', textTransform: 'uppercase'}}
-                onClick
+                style={{ backgroundColor: `${Subscribed ? '#AAAAAA' : '#CC0000 '}` , borderRadius: '4px', color: 'white', padding: '10px 16px', fontWeight: '500', fontSize: '1rem', textTransform: 'uppercase'}}
+                onClick={onSubscribe}
             >
                 {SubscribeNumber} {Subscribed ? 'Subscribed' : 'Subscribe'}
                 
