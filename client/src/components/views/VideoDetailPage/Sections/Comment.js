@@ -3,6 +3,8 @@ import axios from 'axios'
 import { useSelector } from 'react-redux';
 // #16 
 import SingleComment from './SingleComment'
+// #17 
+import ReplyComment from './ReplyComment'
 
 // #15 댓글 기능(2)
 function Comment(props) {
@@ -54,7 +56,10 @@ function Comment(props) {
 
             {props.CommentLists && props.CommentLists.map((comment, index) => (
                 (!comment.responseTo &&
+                    <React.Fragment>
                     <SingleComment refreshFunction={props.refreshFunction} comment={comment} postId={videoId} />
+                    <ReplyComment refreshFunction={props.refreshFunction} parentCommentId={comment._id} postId={videoId} CommentLists={props.CommentLists}  />
+                    </React.Fragment>
                 )
                 
             ))}
