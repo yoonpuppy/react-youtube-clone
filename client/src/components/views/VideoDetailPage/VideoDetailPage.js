@@ -6,6 +6,8 @@ import axios from 'axios';
 import SideVideo from './Sections/SideVideo';
 // #11 
 import Subscribe from './Sections/Subscribe';
+// #14
+import Comment from './Sections/Comment'
 
 function VideoDetailPage(props) {
 
@@ -57,6 +59,7 @@ function VideoDetailPage(props) {
                         </List.Item>
 
                         {/* Comments */}
+                        <Comment postId={videoId} />
 
                     </div>
 
