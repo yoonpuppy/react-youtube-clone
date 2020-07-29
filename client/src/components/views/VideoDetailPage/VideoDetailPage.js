@@ -8,6 +8,8 @@ import SideVideo from './Sections/SideVideo';
 import Subscribe from './Sections/Subscribe';
 // #14
 import Comment from './Sections/Comment'
+// #19
+import LikeDislikes from './Sections/LikeDislikes'
 
 function VideoDetailPage(props) {
 
@@ -56,6 +58,9 @@ function VideoDetailPage(props) {
 
     if(VideoDetail.writer) {
 
+        // #19 LikeDislikes Button
+        
+
         const subscribeButton = VideoDetail.writer._id !== localStorage.getItem('userId') && <Subscribe userTo={VideoDetail.writer._id} userFrom={localStorage.getItem('userId')} />
 
         return (
@@ -65,7 +70,7 @@ function VideoDetailPage(props) {
                         <video style={{ width: '100%' }} src={`http://localhost:5000/${VideoDetail.filePath}`} controls />
 
                         <List.Item
-                            actions={[ subscribeButton ]}
+                            actions={[ <LikeDislikes video  userId={localStorage.getItem('userId')} videoId={videoId} />, subscribeButton ]}
                         >
                             <List.Item.Meta
                                 avatar={<Avatar src={VideoDetail.writer.image} />}
