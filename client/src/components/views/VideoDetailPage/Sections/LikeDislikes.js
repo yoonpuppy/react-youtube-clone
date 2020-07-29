@@ -43,7 +43,7 @@ function LikeDislikes(props) {
                 }
             })
 
-        axios.post('/api/dislike/getDislikes', variable)
+        axios.post('/api/like/getDislikes', variable)
             .then(response => {
                 if(response.data.success) {
                     // 얼마나 많은 싫어요를 받았는지 (response.data.dislikes.length)
@@ -64,25 +64,96 @@ function LikeDislikes(props) {
 
     }, [])
 
+    const onLike = () => {
+
+        if (LikeAction === null) {
+
+            axios.post('/api/like/upLike', variable)
+                .then(response => {
+                    if (response.data.success) {
+
+                        setLikes(Likes + 1)
+                        setLikeAction('liked')
+
+                        if (DislikeAction !== null) {
+                            setDislikeAction(null)
+                            setDislikes(Dislikes - 1)
+                        }
+
+                    } else {
+                        alert('Like Up 실패')
+                    }
+                })
+        } else {
+            axios.post('/api/like/unLike', variable)
+                .then(response => {
+                    if (response.data.success) {
+
+                        setLikes(Likes - 1)
+                        setLikeAction(null)
+
+                    } else {
+                        alert('Like Down 실패')
+                    }
+                })
+        }
+
+    }
+
+    const onDislike = () => {
+        
+        if(DislikeAction !== null) {
+            
+            axios.post('/api/like/unDislike', variable)
+                .then(response => {
+                    if(response.data.success) {
+
+                        setDislikes(Dislikes - 1)
+                        setDislikeAction(null)
+
+                    } else {
+                    alert('dislike down 실패')
+                    }
+                })
+        } else {
+            axios.post('/api/like/upDislike', variable)
+                .then(response => {
+                    if(response.data.success) {
+
+                        setDislikes(Dislikes + 1)
+                        setDislikeAction('disliked')
+
+                        if (LikeAction !== null) {
+                            setLikeAction(null)
+                            setLikes(Likes - 1)
+                        }
+
+                    } else {
+                    alert('dislike down 실패')
+                    }
+                })
+        }
+    }
+
     return (
         <div>
             <span  key="comment-basic-like">
                 <Tooltip title="Like">
                     <Icon type="like"
                         theme={LikeAction === 'liked' ? 'filled' : 'outlined'}
-                        onClick
+                        onClick={onLike}
 
                     />
                 </Tooltip>
                 <span style={{ paddingLeft:'8px', cursor: 'auto'}}> {Likes} </span>
-            </span>
+            </span>&nbsp;&nbsp;
 
 
             <span  key="comment-basic-dislike">
                 <Tooltip title="Dislike">
                     <Icon type="dislike"
                         theme={DislikeAction === 'disliked' ? 'filled' : 'outlined'}
-                        onClick
+                        onClick={onDislike}
 
                     />
                 </Tooltip>

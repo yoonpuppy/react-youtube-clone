@@ -42,7 +42,6 @@ app.use('/api/subscribe', require('./routes/subscribe'))
 app.use('/api/comment', require('./routes/comment'))
 // #19 9:00
 app.use('/api/like', require('./routes/like'))
-app.use('/api/dislike', require('./routes/dislike'))
 
 
 //use this to show the image you have in node js server to client (react js)
