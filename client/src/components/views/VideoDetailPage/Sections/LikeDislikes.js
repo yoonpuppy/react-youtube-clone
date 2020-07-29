@@ -112,7 +112,7 @@ function LikeDislikes(props) {
                         setDislikeAction(null)
 
                     } else {
-                    alert('dislike down 실패')
+                        alert('dislike down 실패')
                     }
                 })
         } else {
@@ -129,7 +129,7 @@ function LikeDislikes(props) {
                         }
 
                     } else {
-                    alert('dislike down 실패')
+                        alert('dislike up 실패')
                     }
                 })
         }

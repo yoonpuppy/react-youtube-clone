@@ -69,7 +69,7 @@ router.post('/upLike', (req, res) => {
     const like = new Like(variable)
 
     like.save((err, likeResult) => {
-        if (err) return res.json({ succe: false, err })
+        if (err) return res.json({ success : false, err })
 
         // Dislike 이 이미 클릭되어있다면, Dislike 를 1 down 해줌
         Dislike.findOneAndDelete(variable)
