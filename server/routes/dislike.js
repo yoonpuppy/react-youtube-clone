@@ -20,7 +20,7 @@ router.post('/getDislikes', (req, res) => {
     
     let variable = {}
 
-    if(req.body.videoId_) {
+    if(req.body.videoId) {
         variable = { videoId: req.body.videoId }
     } else {
         variable = { commentId: req.body.commentId}
@@ -31,7 +31,7 @@ router.post('/getDislikes', (req, res) => {
             if(err) return res.status(400).send(err)
             res.status(200).json({ success: true, dislikes })
         })
-        
+
 });
 
 

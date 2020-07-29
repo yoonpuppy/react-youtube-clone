@@ -53,7 +53,7 @@ function SingleComment(props) {
     const actions = [
         
         // #19 Comment LikeDislikes
-        <LikeDislikes userId={localStorage.getItem('userId')} commentId={props.comment._id} />        
+        <LikeDislikes comment userId={localStorage.getItem('userId')} commentId={props.comment._id} />        
         ,<span onClick={onClickReplyOpen} key="comment-basic-reply-to"> Reply to </span>
     ]
 

@@ -20,7 +20,7 @@ router.post('/getLikes', (req, res) => {
     
     let variable = {}
 
-    if(req.body.videoId_) {
+    if(req.body.videoId) {
         variable = { videoId: req.body.videoId }
     } else {
         variable = { commentId: req.body.commentId}
